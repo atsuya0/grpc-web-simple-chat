@@ -1,6 +1,6 @@
-.PHONY: build
+.PHONY: compile
 
-build:
+compile:
 	@protoc chat.proto \
 		--go_out=plugins="grpc:." \
 		--js_out=import_style=commonjs:client/src/proto \

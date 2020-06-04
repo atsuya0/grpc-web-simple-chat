@@ -1,0 +1,35 @@
+version: '3'
+services:
+  envoy:
+    image: envoyproxy/envoy:v1.14.1
+    command: /usr/local/bin/envoy -c /etc/envoy/envoy.yaml -l debug
+    volumes:
+      - ./envoy:/etc/envoy
+    ports:
+      - '10000:10000'
+    links:
+      - 'server'
+    container_name: 'envoy'
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - '50051:50051'
+    volumes:
+      - ./server:/go/src/server
+    container_name: 'server'
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    command: npm run serve
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./client:/client
+    links:
+      - 'envoy'
+    container_name: 'client'

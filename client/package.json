@@ -1,0 +1,21 @@
+{
+  "name": "chat-client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "@grpc/proto-loader": "^0.5.4",
+    "@vue/cli-plugin-babel": "~4.4.0",
+    "@vue/cli-service": "~4.4.0",
+    "google-protobuf": "^3.12.2",
+    "grpc-web": "^1.1.0",
+    "vue-template-compiler": "^2.6.11"
+  }
+}

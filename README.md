@@ -7,7 +7,9 @@ $ npm install -g protoc-gen-grpc-web
 $ grpc_cli call localhost:50051 ChatService.Login 'name: "John"'
 
 # 参考URL
+https://github.com/grpc/grpc-go
 https://github.com/grpc/grpc-web
 https://github.com/grpc/grpc-web/tree/master/net/grpc/gateway/examples/echo
 https://godoc.org/google.golang.org/grpc
-https://godoc.org/google.golang.org/grpc/status
+https://grpc.io/docs/languages/go/quickstart/
+https://cloud.google.com/endpoints/docs/grpc/grpc-service-config?hl=ja

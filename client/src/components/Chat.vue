@@ -59,6 +59,7 @@ export default {
           if (err != null) {
             console.log(err);
           }
+          this.message = '';
         })
     },
     fetchMessageStream: function() {

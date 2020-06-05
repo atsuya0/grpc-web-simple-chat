@@ -18,8 +18,8 @@
 </template>
 
 <script>
+import client from '../api/client.js'
 import { Message, User } from '../proto/chat_pb'
-import { ChatServiceClient } from '../proto/chat_grpc_web_pb'
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 
 export default {
@@ -29,7 +29,6 @@ export default {
     userToken: "",
     message: "",
     messages: [],
-    client: new ChatServiceClient('http://localhost:10000', null, null),
     stream: null,
   }),
   methods: {
@@ -37,7 +36,7 @@ export default {
       if (!this.userName) {
         return;
       }
-      await this.client
+      await client
         .login(this.getUser(), {}, (err, user) => {
           if (err != null) {
             console.log(err);
@@ -55,7 +54,7 @@ export default {
       message.setContent(this.message);
       message.setUser(this.getUser());
 
-      await this.client
+      await client
         .sendMessage(message, {}, (err, res) => {
           if (err != null) {
             console.log(err);
@@ -63,7 +62,7 @@ export default {
         })
     },
     fetchMessageStream: function() {
-      const stream = this.client.getMessage(this.getUser());
+      const stream = client.getMessage(this.getUser());
       stream.on('data', message => {
         console.log(message);
         this.messages = [...this.messages, message];

@@ -1,18 +1,30 @@
 <template>
   <section>
-    <div v-if="!userToken">
+    <form v-if="!userToken" class="name-input">
       <input v-model="userName" />
       <button @click="login">名前を入力</button>
-    </div>
+    </form>
     <div v-else>
-      <ul>
-        <li v-for="message of messages">
-          {{ message.getUser().getName() }}
-          {{ message.getContent() }}
+      <ul class="messages">
+        <li
+          v-for="message of messages"
+          class="message"
+        >
+          <div class="user-name">
+            {{ message.getUser().getName() }}
+          </div>
+          <div
+            class="content"
+            :class="{ myMessage: userToken === message.getUser().getToken() }"
+          >
+            {{ message.getContent() }}
+          </div>
         </li>
       </ul>
-      <input v-model="message" />
-      <button @click="sendMessage">送信</button>
+      <form class="message-input">
+        <input v-model="message" />
+        <button @click="sendMessage">送信</button>
+      </form>
     </div>
   </section>
 </template>
@@ -32,7 +44,8 @@ export default {
     stream: null,
   }),
   methods: {
-    login: async function() {
+    login: async function(e) {
+      e.preventDefault();
       if (!this.userName) {
         return;
       }
@@ -46,7 +59,8 @@ export default {
           }
         })
     },
-    sendMessage: async function() {
+    sendMessage: async function(e) {
+      e.preventDefault();
       if (!this.message) {
         return;
       }
@@ -80,3 +94,36 @@ export default {
 };
 </script>
 
+<style scoped>
+.name-input, .message-input {
+  text-align: center;
+}
+
+.messages {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.message {
+  margin-bottom: 1rem;
+  width: 70%;
+  min-width: 20rem;
+}
+
+.content {
+  font-size: 110%;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+}
+
+.user-name {
+  font-size: 85%;
+  padding: 0 0 0.3rem 0.3rem;
+}
+
+.myMessage {
+  background-color: #fefffc;
+}
+</style>

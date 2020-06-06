@@ -123,7 +123,6 @@ func (s *server) broadcast(msg *pb.Message) {
 func (s *server) SendMessage(ctx context.Context, msg *pb.Message) (*pb.Message, error) {
 	log.Println("Try to broadcast message.")
 	s.broadcast(msg)
-	// CreatedAt
 	log.Printf("Sent %s.\n", msg.GetContent())
 	return msg, nil
 }

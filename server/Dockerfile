@@ -1,6 +1,6 @@
 FROM golang:latest
 
-WORKDIR /app
+WORKDIR /server
 COPY . .
 RUN go mod download
 RUN go build -o app

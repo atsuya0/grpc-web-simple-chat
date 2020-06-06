@@ -18,7 +18,7 @@ func init() {
 
 func main() {
 	server := server{exitCh: make(chan struct{}, 1), wg: new(sync.WaitGroup)}
-	if err := server.run(); err != nil {
+	if err := server.run(acceptSignals()); err != nil {
 		log.Fatalln(err)
 	}
 }

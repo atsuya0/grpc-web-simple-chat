@@ -28,24 +28,33 @@ type server struct {
 	wg        *sync.WaitGroup
 }
 
-func (s *server) run() error {
+func (s *server) run(ctx context.Context) error {
+	log.Println("Server run.")
 	defer func() {
 		close(s.exitCh)
 		s.wg.Wait()
 	}()
-	log.Println("Server run.")
+
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
 		return fmt.Errorf("Failed to listen: %w", err)
 	}
+
 	grpcServer := grpc.NewServer()
-	defer grpcServer.GracefulStop()
+	defer func() {
+		grpcServer.GracefulStop()
+		log.Println("Server shutdown.")
+	}()
+
 	pb.RegisterChatServiceServer(grpcServer, s)
 	reflection.Register(grpcServer)
-	if err := grpcServer.Serve(lis); err != nil {
-		return fmt.Errorf("Failed to serve: %w", err)
-	}
-	log.Println("Server shutdown.")
+
+	go func() {
+		grpcServer.Serve(lis)
+	}()
+
+	<-ctx.Done()
+
 	return nil
 }
 

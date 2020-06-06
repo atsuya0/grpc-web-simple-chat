@@ -15,6 +15,7 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
+    command: /server/app
     ports:
       - '50051:50051'
     volumes:

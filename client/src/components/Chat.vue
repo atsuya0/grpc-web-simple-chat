@@ -10,13 +10,13 @@
           v-for="message of messages"
           class="message"
         >
-          <div class="user-name">
-            {{ message.getUser().getName() }}
-          </div>
           <div
-            class="content"
+            class="user-name"
             :class="{ myMessage: userToken === message.getUser().getToken() }"
           >
+            {{ message.getUser().getName() }}
+          </div>
+          <div class="content" >
             {{ message.getContent() }}
           </div>
           <div class="posted-at">
@@ -141,6 +141,6 @@ export default {
 }
 
 .myMessage {
-  background-color: #fefffc;
+  font-weight: bold;
 }
 </style>

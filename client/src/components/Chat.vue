@@ -115,7 +115,7 @@ export default {
 .content {
   font-size: 110%;
   padding: 0.5rem 1rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
 .user-name {

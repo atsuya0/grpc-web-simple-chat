@@ -19,6 +19,9 @@
           >
             {{ message.getContent() }}
           </div>
+          <div class="posted-at">
+            {{ message.getCreatedAt() | toLocaleString }}
+          </div>
         </li>
       </ul>
       <form class="message-input">
@@ -32,7 +35,8 @@
 <script>
 import client from '../api/client.js'
 import { Message, User } from '../proto/chat_pb'
-import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
+// import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
+import { Timestamp } from 'google-protobuf/google/protobuf/timestamp_pb';
 
 export default {
   name: "Chat",
@@ -43,6 +47,11 @@ export default {
     messages: [],
     stream: null,
   }),
+  filters: {
+    toLocaleString: (value) => {
+      return (new Date(value.getSeconds() * 1000)).toLocaleString()
+    }
+  },
   methods: {
     login: async function(e) {
       e.preventDefault();
@@ -67,6 +76,9 @@ export default {
       const message = new Message();
       message.setContent(this.message);
       message.setUser(this.getUser());
+      const timestamp = new Timestamp();
+      timestamp.fromDate(new Date());
+      message.setCreatedAt(timestamp);
 
       await client
         .sendMessage(message, {}, (err, res) => {
@@ -119,6 +131,11 @@ export default {
 }
 
 .user-name {
+  font-size: 85%;
+  padding: 0 0 0.3rem 0.3rem;
+}
+
+.posted-at {
   font-size: 85%;
   padding: 0 0 0.3rem 0.3rem;
 }

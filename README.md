@@ -8,7 +8,7 @@ $ cd grpc-web-simple-chat
 $ docker-compose up -d --build  
 $ chromium http://localhost:8080  
 
-# protocをコンパイル
+# protoファイルをコンパイル
 $ sudo paman -S protobuf  
 $ go get -u github.com/golang/protobuf/protoc-gen-go  
 $ npm install -g protoc-gen-grpc-web  
@@ -19,6 +19,7 @@ curlの代わりgrpc-cli
 $ sudo paman -S grpc-cli  
 $ grpc_cli ls localhost:50051 chat.ChatService -l  
 $ grpc_cli call localhost:50051 ChatService.Login 'name: "John"'  
+$ grpc_cli call localhost:50051 ChatService.SendMessage 'content: "Hey"'  
 
 # 参考URL
 https://grpc.io/docs/languages/go/quickstart  

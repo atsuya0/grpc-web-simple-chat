@@ -42,7 +42,7 @@ func (s *server) run(ctx context.Context) error {
 
 	grpcServer := grpc.NewServer()
 	defer func() {
-		grpcServer.GracefulStop()
+		grpcServer.Stop()
 		log.Println("Server shutdown.")
 	}()
 

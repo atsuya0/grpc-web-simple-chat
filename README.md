@@ -3,7 +3,7 @@
 メッセージはサーバーに保存していないので、過去のメッセージは見えない。  
 
 # 起動
-$ git clone https://github.com/tayusa/grpc-web-simple-chat.git  
+$ git clone https://github.com/atsuya0/grpc-web-simple-chat.git  
 $ cd grpc-web-simple-chat  
 $ docker-compose up -d --build  
 $ chromium http://localhost:8080  
